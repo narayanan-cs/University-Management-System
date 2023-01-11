@@ -1,0 +1,275 @@
+University consists of departments.
+Departments consists of rooms, faculty, HOD, NoticeBoard
+Rooms consists of students, classes, schedule
+Faculty has schedule
+Notice board consists of info
+info consists of exam dates, symposium, fests
+IDC per department
+*******************************
+Parking System
+
+Parking area consists of guard,floors, vehicle allowing mechanism
+floors consist of capacity
+vehicle allowing mechanism consists of turnstiles and card scanning mechanism
+
+*********************************
+irctc - ticket booking system
+
+irctc consists of zones(North, East, South , West).
+Each zone consists of trains info - origin, destination, departure time, arrival time
+Each train consists of coach, berth, seat.
+booking algorithm will allot seats to bookers based on availability
+booking status will be different depending on time(planned or unplanned)
+ and type of booking(tatkal or normal)
+Cancellation algorithm will pool seats back to be allotted.
+irctc also consists of offers
+It consists of hotels,flights, special trains like tourist trains info (network APIs)
+******************************************
+Policy Bazaar.com
+
+Policy bazaar consists of insurers
+polciy bazaar consists of offers from insurers - basically it is showing data at more than one place
+first place - inside insurers section
+second place - policy bazaar's categories.
+Insurer consists of insurance plans
+Insurance plans have quote and sale APIs if I can.
+Insurer might have Claims inside or a separate link to claims portal.
+**************************************************
+
+Metro
+
+Metro consists of routes, trains, train terminals(cleaning depot)
+Routes consist of stations.
+Each station consists of baggage scanners, ticket counters and electronic way of allowing 
+passengers inside station and onto the platform.
+Each of the above has its own components
+Example: Ticket cutting machine: When a passenger offers the card for scan for boarding
+train then the machine records the balance onto the server and broadcasts the info
+that ticket has been cut. Thus, the card will not be used more than once.
+When the person alights from the train and submits the ticket card, the machine deducts the amount 
+from the map(Javascript Map :)) of fares and shows the remaining balance and broadcasts that the passenger
+has been let out. So no other machine can deduct again.
+
+Looks like QR code Apps can be reused for deducting balances.
+The QR code points to a link that connects with the passengers' money.
+Money can be deducted any number of times.
+*******************************************************
+D-Mart:
+D-mart consists of buildings
+Each building consists of floors
+Floors consist of departments
+department consists of attendees and goods
+Also billing counters
+cashier sells goods and earns profit.
+D-Mart has offers on prices like end of season sale ..etc.
+D-Mart has its Suppliers who sell wholesale to it
+****************************************************************
+
+FlipKart/Amazon
+
+At the core,
+every site has a home page .
+Home page has banner which has offers.
+Each merchant can sell his/her goods.
+When sold commission goes to FlipKart and the rest goes to merchant
+Invoicing and delivery statuses culminating in delivery by OTP
+Admin of flip kart and merchant admins
+payment Gateways
+The above concept is adorned with state of the art technology
+like Amazon Alexa and AI search facility etc.
+
+Classes start from goods shown 
+phone - abstract class
+brands- concrete classes 
+Actually the data will be APIs from each merchant end.
+
+Additional tip : Based on places, offers might be available in banners
+Entities:
+Customer
+merchant
+Invoice
+goods
+delivery
+Order
+order item which is goods
+Cancellation
+Admin
+payment Gateway
+Note: Api responses and classes will have the same schema.
+Note: the dynamic data will be loaded into memory at run time. That is why it is calle dynamic data.
+At its core:
+customer enters data
+customer.placeOrder(orderItems)
+Merchant.charge(customer)
+customer.payMerchant(paymentGatewayInfo)
+flipkart.deliver(merchantItems)
+If(customer.cancelorder(orderId))
+{
+    customer.returnsOrderItems(OrderId)
+    flipkart.notifies(merchant)
+    merchant.refunds(customerID)
+    merchant.binds(CancellationID, orderId, CustomerId)
+}
+So Entities are
+Customer: register,place order, cancel order, 
+Merchant: charge, refund, bind cancellation to the order
+Admin: upload content to site
+FlipKart: provide emailing, SMS OTP, invoicing services for which they charge commission.
+class Customer 
+{
+    customerDetails :Profile;
+    orders: Order[]
+    cart: Cart
+    placeOrder(cart)
+    cancelOrder(Orderid)
+}
+class Order
+{
+    orderId;
+    orderItems: Cart;
+    orderDate:Date
+    orderTotal;
+    promocodes;
+    invoice:Invoice
+}
+class Invoice
+{
+   invoiceId;
+   deliveryAddress;
+   customerMobile;
+   orderDetails: Order;
+
+   } 
+    class Cart {
+cartId : number;
+items: Item[];
+}
+
+class Item
+{
+    qty;
+    rate;
+    description;
+    promocodes;
+
+}
+
+
+class Delivery
+{
+    orderID;
+    deliveryDate;
+    deliveryAddress;
+    }
+
+class OrderHistory
+{
+    orderid[]
+    deliveryDate;
+    orders = new Map();
+    getOrderitems(orderID[])
+    {
+       orderId.foreach((id)=>{
+            return orders.set(id,getorderItem(id))
+        })
+        
+        return orders;
+    }
+}    
+
+classProfile
+{
+    customerid;
+    name;
+    age;
+    address;
+    photo: any;
+    email;
+    mobile;
+
+}
+
+class Merchant
+{
+    merchantId;
+    customers: Customer[]
+    paymentGateway;
+
+    chargeCustomer(customerId,merchantId,paymentGateway)
+    {
+        //this is where First Cry redirects to Googlepay and upon entering PIN requests amount.
+    }
+    refundCustomer(customerid, merchantid,paymentGateway)
+    {
+
+    }
+}
+
+**********************************************
+Telecom
+
+
+feed packages into database
+get the call details of the Customer
+Bill the customer and send the invoice for postpaid
+class package
+{
+    packageid;
+    duration
+    SMS
+    mobile data
+    otherdetails;
+}
+
+class customer
+{
+ profile;
+ recharge(customerId, plan/package):boolean//prepaid
+ }
+
+ class mobileOperator
+ {
+    customers : Customer[]
+    plans: Plan[]
+    //for postpaid
+    invoices: Invoice[]
+ bill(customerId,planId): Invoice//on bill date
+ sendInvoice(CustomerId,invoiceID)
+ }
+
+**********************************
+HRMS
+
+attendance tracker
+payroll
+hiring and firing
+promotion
+
+Players:
+Employee
+Employer
+Payroll
+CTC
+promotion
+recruitment
+termination
+resignation
+
+Payroll:
+
+forall employees
+if(ispayDay)
+{
+    pay the salary
+    inform employees
+}
+***************************************
+CRM salesforce
+
+Keep all customer Data in one place
+use the data in different dimensions.
+
+***********************
+Quora
+
+Questions or Answers
